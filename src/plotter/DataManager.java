@@ -13,6 +13,7 @@ import java.io.IOException;
 public class DataManager
 {
     private static ObservableList<Point> points = FXCollections.observableArrayList();
+    private static Point currentSelection;
     private static int circleIndex;
     public static String fileName = null;
 
@@ -61,6 +62,16 @@ public class DataManager
     public static ObservableList<Point> getPoints()
     {
         return points;
+    }
+
+    public static Point getCurrentSelection()
+    {
+        return currentSelection;
+    }
+
+    public static void setCurrentSelection(Point currentSelection)
+    {
+        DataManager.currentSelection = currentSelection;
     }
 
     public static void setPoints(ObservableList<Point> points)

@@ -45,7 +45,7 @@ public class Controller implements Initializable
         DataManager.setPoints(FXCollections.observableArrayList());
         DataManager.setCircleIndex(-1);
 
-        canvas = new ResizableCanvas(DataManager.getPoints());
+        canvas = new ResizableCanvas();
 
         ap.getChildren().add(canvas);
         canvas.widthProperty().bind(ap.widthProperty());
@@ -56,17 +56,16 @@ public class Controller implements Initializable
 
         listView.setItems(DataManager.getPoints());
         listView.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
-            //Draw circle around selected point
-            DataManager.setCircleIndex(-1);
-            canvas.draw();
-            DataManager.setCircleIndex(DataManager.getPoints().indexOf(new_val));
-            graphicsContext.setStroke(Color.BLACK);
-            graphicsContext.strokeOval(new_val.getX() - 10, new_val.getY() - 10, 20, 20);
-
-            //Update text fields to reflect selected point
-            pointXCoordField.setText("" + new_val.getX());
-            pointYCoordField.setText("" + new_val.getY());
-            pointColorField.setText(new_val.getC());
+            DataManager.setCurrentSelection(new_val);
+            if (new_val != null)
+            {
+                //Draw circle around selected point
+                DataManager.setCircleIndex(- 1);
+                canvas.draw();
+                DataManager.setCircleIndex(DataManager.getPoints().indexOf(new_val));
+                graphicsContext.setStroke(Color.BLACK);
+                graphicsContext.strokeOval(new_val.getX() - 10, new_val.getY() - 10, 20, 20);
+            }
         });
 
         canvas.setScaleX(1);
@@ -208,7 +207,6 @@ public class Controller implements Initializable
         if (file != null)
         {
             DataManager.openAndLoadFile(file);
-            canvas.setPoints(DataManager.getPoints());
             canvas.draw();
             Controller.firstSave = false;
         }

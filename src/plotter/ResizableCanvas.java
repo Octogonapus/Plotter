@@ -1,7 +1,5 @@
 package plotter;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -12,12 +10,8 @@ import javafx.scene.paint.Color;
 
 public class ResizableCanvas extends Canvas
 {
-    private ObservableList<Point> points = FXCollections.observableArrayList();
-
-    public ResizableCanvas(ObservableList<Point> points)
+    public ResizableCanvas()
     {
-        this.points = points;
-
         widthProperty().addListener(evt -> draw());
         heightProperty().addListener(evt -> draw());
     }
@@ -30,31 +24,31 @@ public class ResizableCanvas extends Canvas
         GraphicsContext graphicsContext = getGraphicsContext2D();
         graphicsContext.clearRect(0, 0, width, height);
 
-        if (points.size() > 0 && points.size() == 1)
+        if (DataManager.getPoints().size() > 0 && DataManager.getPoints().size() == 1)
         {
-            Point point = points.get(0);
+            Point point = DataManager.getPoint(0);
             graphicsContext.setStroke(Color.web(point.getC()));
             graphicsContext.strokeLine(point.getX(), point.getY(), point.getX(), point.getY());
 
             if (DataManager.getCircleIndex() != -1)
             {
                 graphicsContext.setStroke(Color.BLACK);
-                graphicsContext.strokeOval(points.get(DataManager.getCircleIndex()).getX() - 10, points.get(DataManager.getCircleIndex()).getY() - 10, 20, 20);
+                graphicsContext.strokeOval(DataManager.getPoint(DataManager.getCircleIndex()).getX() - 10, DataManager.getPoint(DataManager.getCircleIndex()).getY() - 10, 20, 20);
             }
 
         }
-        else
+        else if (DataManager.getPoints().size() > 1)
         {
-            for (int i = 0; i < points.size() - 1; i++)
+            for (int i = 0; i < DataManager.getPoints().size() - 1; i++)
             {
-                graphicsContext.setStroke(Color.web(points.get(i).getC()));
-                graphicsContext.strokeLine(points.get(i).getX(), points.get(i).getY(), points.get(i + 1).getX(), points.get(i + 1).getY());
+                graphicsContext.setStroke(Color.web(DataManager.getPoint(i).getC()));
+                graphicsContext.strokeLine(DataManager.getPoint(i).getX(), DataManager.getPoint(i).getY(), DataManager.getPoint(i + 1).getX(), DataManager.getPoint(i + 1).getY());
             }
 
             if (DataManager.getCircleIndex() != -1)
             {
                 graphicsContext.setStroke(Color.BLACK);
-                graphicsContext.strokeOval(points.get(DataManager.getCircleIndex()).getX() - 10, points.get(DataManager.getCircleIndex()).getY() - 10, 20, 20);
+                graphicsContext.strokeOval(DataManager.getPoint(DataManager.getCircleIndex()).getX() - 10, DataManager.getPoint(DataManager.getCircleIndex()).getY() - 10, 20, 20);
             }
         }
     }
@@ -75,15 +69,5 @@ public class ResizableCanvas extends Canvas
     public double prefHeight(double width)
     {
         return getHeight();
-    }
-
-    public ObservableList<Point> getPoints()
-    {
-        return points;
-    }
-
-    public void setPoints(ObservableList<Point> points)
-    {
-        this.points = points;
     }
 }
