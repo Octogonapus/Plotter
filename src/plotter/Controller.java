@@ -70,46 +70,51 @@ public class Controller implements Initializable
 
         canvas.setScaleX(1);
         canvas.setScaleY(-1);
+
+        pointColorField.setText("#0000FF");
     }
 
     public void addPointButtonPressed(ActionEvent actionEvent)
     {
-        if (pointXCoordField.getText().equals(""))
-        {
-            System.out.println("Point X must be specified");
-        }
-        else if (pointYCoordField.getText().equals(""))
-        {
-            System.out.println("Point Y must be specified");
-        }
-        else
+        if (!pointXCoordField.getText().equals("") && !pointYCoordField.getText().equals(""))
         {
             Point point;
 
             try
             {
                 point = new Point(Integer.parseInt(pointXCoordField.getText()), Integer.parseInt(pointYCoordField.getText()), pointColorField.getText());
-
-                if (DataManager.getPoints().size() == 0)
-                {
-                    graphicsContext.setStroke(Color.web(point.getC()));
-                    graphicsContext.strokeLine(point.getX(), point.getY(), point.getX(), point.getY());
-                }
-                else
-                {
-                    graphicsContext.setStroke(Color.web(point.getC()));
-                    graphicsContext.strokeLine(DataManager.getPoint(DataManager.getPoints().size() - 1).getX(), DataManager.getPoint(DataManager.getPoints().size() - 1).getY(), point.getX(), point.getY());
-                }
-
+                drawLine(graphicsContext, point);
                 DataManager.addPoint(point);
             }
             catch (NumberFormatException e)
             {
                 System.out.println("NaN");
             }
+            catch (IllegalArgumentException e)
+            {
+                System.out.print("NaC");
+                point = new Point(Integer.parseInt(pointXCoordField.getText()), Integer.parseInt(pointYCoordField.getText()), pointColorField.getText());
+                point.setC("#0000FF");
+                drawLine(graphicsContext, point);
+                DataManager.addPoint(point);
+            }
 
             pointXCoordField.setText("");
             pointYCoordField.setText("");
+        }
+    }
+
+    private void drawLine(GraphicsContext graphicsContext, Point point)
+    {
+        if (DataManager.getPoints().size() == 0)
+        {
+            graphicsContext.setStroke(Color.web(point.getC()));
+            graphicsContext.strokeLine(point.getX(), point.getY(), point.getX(), point.getY());
+        }
+        else
+        {
+            graphicsContext.setStroke(Color.web(point.getC()));
+            graphicsContext.strokeLine(DataManager.getPoint(DataManager.getPoints().size() - 1).getX(), DataManager.getPoint(DataManager.getPoints().size() - 1).getY(), point.getX(), point.getY());
         }
     }
 

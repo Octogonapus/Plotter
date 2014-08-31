@@ -15,9 +15,6 @@ public class DirectoryTools {
         else
             path = rawPath;
         directory = new File(path);
-        if (directory.mkdir())
-            System.out.println("Directory Created");
-        else
-            System.out.println("Directory Not Created");
+        directory.mkdir();
     }
 }
