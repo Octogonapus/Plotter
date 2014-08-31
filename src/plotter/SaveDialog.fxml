@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="106.00009999999747" prefWidth="228.00002207031503" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="plotter.SaveDialogController">
+    <children>
+        <VBox id="VBox" alignment="CENTER" layoutX="14.0" layoutY="14.0" spacing="5.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the File Name:">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="fileNameTextField" prefWidth="200.0" promptText="File Name" />
+                <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Button id="saveConfirmButtonPressed" mnemonicParsing="false" onAction="#saveConfirmButtonPressed" text="Okay" />
+                        <Button id="saveCancelButtonPressed" mnemonicParsing="false" onAction="#saveCancelButtonPressed" text="Cancel" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

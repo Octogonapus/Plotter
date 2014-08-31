@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plotter.Controller">
+   <top>
+      <HBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="pointXCoordField" promptText="Point X" />
+            <TextField fx:id="pointYCoordField" promptText="Point Y" />
+            <TextField fx:id="pointColorField" promptText="Point Color" />
+            <Button mnemonicParsing="false" onAction="#addPointButtonPressed" text="Add Point" />
+            <Button mnemonicParsing="false" onAction="#removeLastPointButtonPressed" text="Remove Last Point" />
+            <Button mnemonicParsing="false" onAction="#clearPointsButtonPressed" text="Clear Points" />
+            <Button mnemonicParsing="false" onAction="#saveButtonPressed" text="Save" />
+            <Button mnemonicParsing="false" onAction="#saveAsButtonPressed" text="Save As" />
+            <Button mnemonicParsing="false" onAction="#openButtonPressed" text="Open" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" top="10.0" />
+         </BorderPane.margin>
+      </ListView>
+   </left>
+</BorderPane>
